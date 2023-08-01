@@ -1,0 +1,340 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+html {
+    padding: 0;
+    margin: 0;
+}
+
+/* Header styles */
+.navbar {
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navbar__brand {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.navbar__brand a {
+    text-decoration: none;
+    color: #000;
+}
+
+.nav-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.navbar__menu {
+    display: flex;
+}
+
+.navbar__menu .nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar__menu .nav__item {
+    margin-left: 20px;
+    margin-right: 10px;
+    padding-right: 20px;
+}
+
+.navbar__menu .nav__link {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.navbar__menu .nav__link:hover {
+    color: #007bff;
+}
+
+
+/* Mobile Navbar Styles */
+@media (max-width: 767px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .navbar a {
+        padding: 0.5rem;
+    }
+
+    .navbar .logo {
+        font-size: 18px;
+        /* Adjust font-size as per your requirement */
+    }
+
+    .navbar .navbar-toggle {
+        display: block;
+    }
+
+    .navbar .navbar-menu {
+        display: none;
+    }
+}
+
+/* Toggle button for mobile menu */
+.navbar-toggle {
+    cursor: pointer;
+    display: none;
+    /* This will be visible only in mobile size */
+}
+
+.navbar-toggle:before {
+    content: "☰";
+    font-size: 24px;
+    /* Adjust font-size as per your requirement */
+    color: white;
+    /* Adjust color as per your requirement */
+}
+
+/* Mobile menu */
+.navbar-menu {
+    display: flex;
+    /* This will be hidden in mobile size */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+/* Hero Section */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 570px;
+    /* adjust height as per your requirement */
+    background-image: url('assets/bg8k.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero__text {
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.hero__content {
+    color: #fff;
+}
+
+.hero__title {
+    font-size: 5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: white;
+    /*darker color*/
+    text-shadow: 1px 1px #000000;
+    /*black shadow*/
+    margin-left: 10px;
+}
+
+
+.hero__button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.hero__button:hover {
+    background-color: #0056b3;
+}
+
+.hero-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-text-container button {
+    margin-right: 1rem;
+}
+
+/* Section styles */
+section {
+    padding: 50px 0;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Services section styles */
+#services {
+    background-color: #f4f4f4;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+}
+
+/* About section styles */
+#about {
+    background-color: #f4f4f4;
+}
+
+#about p {
+    line-height: 2;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+/* Portfolio section styles */
+#portfolio .grid {
+    justify-content: space-between;
+}
+
+#portfolio .card {
+    width: 30%;
+}
+
+#testimonials .grid {
+    align-items: center;
+    justify-content: space-between;
+}
+
+#testimonials .card {
+    width: 45%;
+}
+
+/* FAQ section styles */
+#faq .grid {
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#faq .card {
+    width: 45%;
+}
+
+/* Contact */
+.contact-form {
+    width: 50%;
+    /* adjust as per your design */
+    margin: 0 auto;
+    /* center the form */
+    padding: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    /* add space between form elements */
+}
+
+.form-group label {
+    display: block;
+    /* make label take up full width of parent */
+    font-size: 1.2rem;
+    /* adjust as per your design */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    /* make inputs take up full width of parent */
+    padding: 0.5rem;
+    /* adjust as per your design */
+    font-size: 1.2rem;
+    /* adjust as per your design */
+    border: 1px solid #ccc;
+    /* adjust as per your design */
+}
+
+.form-group button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    justify-content: center;
+}
+
+.form-group button[type="submit"]:hover {
+    background-color: #0056b3;
+    /* adjust as per your design */
+}
+
+/* Footer styles */
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 50px 0;
+    margin-bottom: 0;
+}
+
+footer h4 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+footer a {
+    color: #ffffff;
+}
+
+footer a:hover {
+    color: #000000;
+}
+
+.footer-copyright {
+    background-color: #222222;
+    color: #ffffff;
+    padding: 10px 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    text-align: right;
+}
