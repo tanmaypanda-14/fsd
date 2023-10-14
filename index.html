@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <title>Student Registration</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-    <header class="bg-dark text-white">
+  <header class="bg-dark text-white">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="index.html">TanmayPanda</a>
@@ -33,43 +33,42 @@
       </nav>
     </div>
   </header>
-  <div class="container">
+
+  <div class="container mt-5">
     <h1 class="text-center">Student Registration</h1>
 
     <form id="registrationForm">
       <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter your username">
       </div>
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" placeholder="Enter your email">
       </div>
       <div class="form-group">
-        <label for="course">Select Course</label>
-        <select class="form-control" id="course">
-          <option value="engineering">Engineering</option>
-          <option value="business">Business</option>
-          <option value="arts">Arts</option>
-        </select>
+        <label for="phone">Phone Number (10 digits only)</label>
+        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <p>For more information, visit our <a href="courses.html" target="_blank">courses page</a>.</p>
-
-    <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </ul>
-
+    <h2 class="mt-5">Registered Students</h2>
     <table class="table">
       <thead>
         <tr>
-          <th>Student ID</th>
-          <th>Name</th>
+          <th>Username</th>
           <th>Email</th>
+          <th>Phone Number</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody id="tableBody">
@@ -77,40 +76,68 @@
       </tbody>
     </table>
   </div>
-  <footer class="bg-dark text-white mt-5">
-    <div class="container text-center py-3">
-      &copy; 2023 Tanmay Panda. All rights reserved.
-    </div>
-  </footer>
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
   <script>
-    // Function to handle form submission
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevents the default form submission behavior
+      event.preventDefault();
 
-      // Get form values
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const course = document.getElementById('course').value;
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-      // Create a data object
-      const data = { name, email, course };
+      // Validate phone number (10 digits)
+      const isValidPhone = (phone) => /^\d{10}$/.test(phone);
+      const isValidUsername = (username) => username !== '';
+      const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const isValidPassword = (password) => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[&$#@]).{7,}$/.test(password);
+      const doPasswordsMatch = (password, confirmPassword) => password === confirmPassword;
 
-      // Check if localStorage already has 'students' data, if not create an empty array
+      if (!username || !email || !phone || !password || !confirmPassword) {
+        alert('All fields must be filled.');
+        return;
+      }
+
+      if (!isValidUsername(username)) {
+        alert('Please enter a valid username.');
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        alert('Please enter a valid email.');
+        return;
+      }
+
+      if (!isValidPhone(phone)) {
+        alert('Please enter a valid 10-digit phone number.');
+        return;
+      }
+
+      if (!isValidPassword(password)) {
+        alert('Please enter a valid password (min 7 characters, at least one capital letter, one digit, and one special character from &,$,#@).');
+        return;
+      }
+
+      if (!doPasswordsMatch(password, confirmPassword)) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      // Save the data to localStorage
+      const studentData = { username, email, phone };
       const students = JSON.parse(localStorage.getItem('students')) || [];
-      students.push(data);
-
-      // Update localStorage with the new data
+      students.push(studentData);
       localStorage.setItem('students', JSON.stringify(students));
 
       // Refresh the table with the updated data
       updateTable();
     });
 
-    // Function to update the table
+    // Function to update the table with data from localStorage
     function updateTable() {
       const tableBody = document.getElementById('tableBody');
       tableBody.innerHTML = ''; // Clear the existing content
@@ -119,11 +146,22 @@
       students.forEach((student, index) => {
         const newRow = tableBody.insertRow();
         newRow.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${student.name}</td>
+          <td>${student.username}</td>
           <td>${student.email}</td>
+          <td>${student.phone}</td>
+          <td><button class="btn btn-danger" onclick="deleteRow(${index})">Delete</button></td>
         `;
       });
+    }
+
+    // Delete a row from the table and localStorage
+    function deleteRow(index) {
+      const students = JSON.parse(localStorage.getItem('students')) || [];
+      students.splice(index, 1);
+      localStorage.setItem('students', JSON.stringify(students));
+
+      // Refresh the table with the updated data
+      updateTable();
     }
 
     // Update the table on page load
